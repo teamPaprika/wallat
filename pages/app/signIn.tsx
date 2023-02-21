@@ -1,18 +1,5 @@
-<<<<<<< Updated upstream
-import React from 'react';
-
-
-const SignIn = () => {
-  const a = 1
-  return (<div>SignIn</div>)
-}
-
-export default SignIn;
-=======
-import React, { useMemo } from "react";
-
+import React, { useEffect, useState } from "react";
 import "../../flow/config";
-import { useState, useEffect } from "react";
 
 import * as fcl from "@onflow/fcl";
 import Head from "next/head";
@@ -160,4 +147,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
->>>>>>> Stashed changes
