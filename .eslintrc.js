@@ -9,7 +9,7 @@ module.exports = {
   ],
   plugins: ["prettier", "react-hooks", "@emotion", "jest", "jest-dom"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "import/no-extraneous-dependencies": [
       "error",
       {
