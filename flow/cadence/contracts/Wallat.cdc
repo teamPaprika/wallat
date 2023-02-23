@@ -7,30 +7,25 @@ pub contract Wallat {
   pub var registeredEmblems: [Emblem]
   pub var deployedSurveys: [Survey]
 
-  pub fun deploySurvey (id:String,name: String, emblemNames: [String], url: String) {
+  pub fun deploySurvey (id:String,name: String, emblemIds: [String], url: String) {
     // id is randomly generated
-    let survey = Survey(id: id, name: name, emblemNames: emblemNames, url: url)
-
+    let survey = Survey(id: id, name: name, emblemIds: emblemIds, url: url)
     Wallat.deployedSurveys.append(survey)
   }
 
   pub struct Survey {
     pub let id: String
     pub let name: String
-    pub let emblemNames: [String]
+    pub let emblemIds: [String]
     pub let url: String
 
-    init(id: String, name: String, emblemNames: [String], url: String) {
+    init(id: String, name: String, emblemIds: [String], url: String) {
       self.id = id
       self.name = name
-      self.emblemNames = emblemNames
+      self.emblemIds = emblemIds
       self.url = url
     }
   }
-
-
-
-
   // Emblem is a piece of information that can be acquired by a user
   pub struct Emblem {
     pub let id: String
@@ -111,17 +106,17 @@ pub contract Wallat {
     return newUserEmblemStorage
   }
 
-  pub fun querySurveyByEmblem (emblemNames: [String]) : [Survey] {
-     var surveys: [Survey] = []
-     for survey in Wallat.deployedSurveys {
-       for emblem in survey.emblemNames {
-       if(emblemNames.contains(emblem)) {
-           surveys.append(survey)
-         }
-       }
-     }
-     return surveys
-   }
+  pub fun querySurveyByEmblemIds (emblemIds: [String]) : [Survey] {
+    var surveys: [Survey] = []
+    for survey in Wallat.deployedSurveys {
+      for emblem in survey.emblemIds {
+        if(emblemIds.contains(emblem)) {
+          surveys.append(survey)
+        }
+      }
+    }
+   return surveys
+  }
 
   init() {
     self.registeredEmblems = []
