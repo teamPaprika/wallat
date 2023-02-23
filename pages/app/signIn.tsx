@@ -86,8 +86,6 @@ const SignIn = () => {
       authorizations: [fcl.authz],
       limit: 50,
     });
-
-    fcl.tx(transactionId).subscribe(res => setTransactionStatus(res.status));
   };
 
   const AuthedState = () => (

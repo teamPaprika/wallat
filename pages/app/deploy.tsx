@@ -2,10 +2,8 @@ import React, { useState } from "react";
 
 import {
   Autocomplete,
-  Box,
   Button,
   Card,
-  CardHeader,
   Checkbox,
   Container,
   TextField,
@@ -42,7 +40,6 @@ const Deploy = ({
     { tag: "$100,000 - $149,999", address: "0x19" },
   ],
 }) => {
-  const a = 1;
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagList, setTagList] = useState(
     tags.map((tag) => ({
