@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import Link from "next/link";
+import Layout from "../components/Layout";
 import "../flow/config";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import * as fcl from "@onflow/fcl";
 import Head from "next/head";
 
 const IndexPage = () => {
-  const [user, setUser] = useState({loggedIn: null})
-  const [name, setName] = useState('') // NEW
-  const [transactionStatus, setTransactionStatus] = useState(null) // NEW
+  const [user, setUser] = useState({ loggedIn: null });
+  const [name, setName] = useState(""); // NEW
+  const [transactionStatus, setTransactionStatus] = useState(null); // NEW
 
-  useEffect(() => fcl.currentUser.subscribe(setUser), [])
+  useEffect(() => fcl.currentUser.subscribe(setUser), []);
 
   // NEW
   const sendQuery = async () => {
@@ -22,11 +22,11 @@ const IndexPage = () => {
           return Profile.read(address)
         }
       `,
-      args: (arg, t) => [arg(user.addr, t.Address)]
-    })
+      args: (arg, t) => [arg(user.addr, t.Address)],
+    });
 
-    setName(profile?.name ?? 'No Profile')
-  }
+    setName(profile?.name ?? "No Profile");
+  };
 
   // NEW
   const initAccount = async () => {
@@ -50,12 +50,12 @@ const IndexPage = () => {
       payer: fcl.authz,
       proposer: fcl.authz,
       authorizations: [fcl.authz],
-      limit: 50
-    })
+      limit: 50,
+    });
 
-    const transaction = await fcl.tx(transactionId).onceSealed()
-    console.log(transaction)
-  }
+    const transaction = await fcl.tx(transactionId).onceSealed();
+    console.log(transaction);
+  };
 
   const executeTransaction = async () => {
     const transactionId = await fcl.mutate({
@@ -74,11 +74,11 @@ const IndexPage = () => {
       payer: fcl.authz,
       proposer: fcl.authz,
       authorizations: [fcl.authz],
-      limit: 50
-    })
+      limit: 50,
+    });
 
-    fcl.tx(transactionId).subscribe(res => setTransactionStatus(res.status))
-  }
+    fcl.tx(transactionId).subscribe((res) => setTransactionStatus(res.status));
+  };
 
   const AuthedState = () => {
     return (
@@ -86,7 +86,6 @@ const IndexPage = () => {
         <div>Address: {user?.addr ?? "No Address"}</div>
         <div>Profile Name: {name ?? "--"}</div>
         <div>Transaction Status: {transactionStatus ?? "--"}</div> {/* NEW */}
-
         {/* NEW */}
         <button onClick={sendQuery}>Send Query</button>
         {/* NEW */}
@@ -94,8 +93,8 @@ const IndexPage = () => {
         <button onClick={executeTransaction}>Execute Transaction</button>
         <button onClick={fcl.unauthenticate}>Log Out</button>
       </div>
-    )
-  }
+    );
+  };
 
   const UnauthenticatedState = () => {
     return (
@@ -103,23 +102,20 @@ const IndexPage = () => {
         <button onClick={fcl.logIn}>Log In</button>
         <button onClick={fcl.signUp}>Sign Up</button>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div>
       <Head>
         <title>FCL Quickstart with NextJS</title>
-        <meta name="description" content="My first web3 app on Flow!"/>
-        <link rel="icon" href="/favicon.png"/>
+        <meta name="description" content="My first web3 app on Flow!" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <h1>Flow App</h1>
-      {user.loggedIn
-        ? <AuthedState/>
-        : <UnauthenticatedState/>
-      }
+      {user.loggedIn ? <AuthedState /> : <UnauthenticatedState />}
     </div>
   );
-}
+};
 
-export default IndexPage
+export default IndexPage;
