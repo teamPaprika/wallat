@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
-import "../../flow/config";
+import React, { useEffect, useState } from 'react';
+import '../../flow/config';
 
-import * as fcl from "@onflow/fcl";
-import Head from "next/head";
-import { useRouter } from "next/router";
+import * as fcl from '@onflow/fcl';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import AppleSignin from '../../src/components/atom/appleSignin';
+import GoogleSignin from '../../src/components/atom/googleSignin';
 
 const SignIn = () => {
   const [user, setUser] = useState({ loggedIn: null });
-  const [name, setName] = useState(""); // NEW
+  const [name, setName] = useState(''); // NEW
   const [transactionStatus, setTransactionStatus] = useState(null); // NEW
   const router = useRouter();
 
@@ -15,7 +18,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user.loggedIn) {
-      router.push("/app/explore");
+      router.push('/app/explore');
     }
   }, [user.loggedIn]);
 
@@ -32,7 +35,7 @@ const SignIn = () => {
       args: (arg, t) => [arg(user.addr, t.Address)],
     });
 
-    setName(profile?.name ?? "No Profile");
+    setName(profile?.name ?? 'No Profile');
   };
 
   // NEW
@@ -77,21 +80,19 @@ const SignIn = () => {
         }
       }
     `,
-      args: (arg, t) => [arg("JJ", t.String)],
+      args: (arg, t) => [arg('JJ', t.String)],
       payer: fcl.authz,
       proposer: fcl.authz,
       authorizations: [fcl.authz],
       limit: 50,
     });
-
-    fcl.tx(transactionId).subscribe((res) => setTransactionStatus(res.status));
   };
 
   const AuthedState = () => (
     <div>
-      <div>Address: {user?.addr ?? "No Address"}</div>
-      <div>Profile Name: {name ?? "--"}</div>
-      <div>Transaction Status: {transactionStatus ?? "--"}</div>
+      <div>Address: {user?.addr ?? 'No Address'}</div>
+      <div>Profile Name: {name ?? '--'}</div>
+      <div>Transaction Status: {transactionStatus ?? '--'}</div>
       {/* NEW */}
 
       {/* NEW */}
@@ -111,7 +112,7 @@ const SignIn = () => {
   );
 
   return (
-    <div>
+    <>
       <Head>
         <title>Wallet</title>
         <meta name="description" content="My first web3 app on Flow!" />
@@ -119,30 +120,76 @@ const SignIn = () => {
       </Head>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100vw",
-          height: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: '#000000',
         }}
       >
         <div
           style={{
-            width: "800px",
-            height: "600px",
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            flexDirection: "column",
-            border: "3px solid #eee",
-            borderRadius: "10px",
+            width: '800px',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            flexDirection: 'column',
+            // border: '3px solid #eee',
+            // borderTop: 'none',
+            // borderBottom: 'none',
+            padding: '0 20px',
           }}
         >
-          <h1>Sign In</h1>
-          {user.loggedIn ? <AuthedState /> : <UnauthenticatedState />}
+          <div
+            style={{
+              flex: 1,
+            }}
+          />
+          <div
+            style={{
+              width: '100%',
+              height: '700px',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '80px',
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <h1
+                style={{
+                  fontSize: '5rem',
+                  textAlign: 'left',
+                  color: '#fff',
+                }}
+              >{`Here is your\nnext wallet,\nWallat`}</h1>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <GoogleSignin />
+              <AppleSignin />
+            </div>
+            {/* {user.loggedIn ? <AuthedState /> : <UnauthenticatedState />} */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
