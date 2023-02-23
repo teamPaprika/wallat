@@ -1,45 +1,6 @@
 {
 	"contracts": {
-		"NonFungibleToken": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"FlowToken": {
-			"aliases": {
-				"emulator": "0ae53cb6e3f42a79"
-			}
-		},
-		"FungibleToken": {
-			"aliases": {
-				"emulator": "ee82856bf20e2aa6"
-			}
-		},
-		"FUSD": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"MetadataViews": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"ExampleNFT": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"NFTStorefrontV2": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"NFTStorefront": {
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		}
+		"Wallat": "cadence/contracts/Wallat.cdc"
 	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
@@ -47,9 +8,32 @@
 		"testnet": "access.devnet.nodes.onflow.org:9000"
 	},
 	"accounts": {
+		"Paprika Data Lab": {
+			"address": "3b7815aafcf8676c",
+			"key": {
+				"type": "file",
+				"location": "Paprika Data Lab.pkey"
+			}
+		},
+		"default": {
+			"address": "179b6b1cb6755e31",
+			"key": "9f1a65971be0e458e9f35f38ffef6fb592e05af31597035a8053a815dedbaeb2"
+		},
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
 			"key": "6d12eebfef9866c9b6fa92b97c6e705c26a1785b1e7944da701fc545a51d4673"
+		}
+	},
+	"deployments": {
+		"emulator": {
+			"default": [
+				"Wallat"
+			]
+		},
+		"testnet": {
+			"Paprika Data Lab": [
+				"Wallat"
+			]
 		}
 	}
 }
